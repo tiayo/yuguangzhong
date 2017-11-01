@@ -38,10 +38,10 @@
                 <form id="form" class="form-horizontal adminex-form" method="post" action="{{ $url }}">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="group" class="col-sm-2 col-sm-2 control-label">分组</label>
+                        <label for="group" class="col-sm-2 col-sm-2 control-label">属性</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="group" name="group">
-                                @foreach(config('site.article_group') as $key => $type)
+                                @foreach(config('site.article_attribute') as $key => $type)
                                     <option value="{{ $key }}">{{ $type }}</option>
                                 @endforeach
                             </select>

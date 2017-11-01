@@ -23,6 +23,9 @@
                                value="{{ Request::get('keyword') }}" placeholder="输入关键字" required>
                     </div>
                     <button type="submit" class="btn btn-primary" id="salesman_search">搜索</button>
+                    <button type="button" class="btn btn-primary" style="float: right" onclick="location='{{ route('article_add') }}'">
+                        添加文章
+                    </button>
                 </form>
                 <header class="panel-heading">
                     文章列表
