@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
-use App\Services\Manage\UserService;
+use App\Services\Manage\ManagerService;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ManagerController extends Controller
 {
-    protected $user;
+    protected $manager;
     protected $request;
 
-    public function __construct(UserService $user, Request $request)
+    public function __construct(ManagerService $manager, Request $request)
     {
-        $this->user = $user;
+        $this->manager = $manager;
         $this->request = $request;
     }
 
@@ -26,9 +26,9 @@ class UserController extends Controller
     {
         $num = config('site.list_num');
 
-        $categories = $this->user->get($num, $keyword);
+        $categories = $this->manager->get($num, $keyword);
 
-        return view('manage.user.list', [
+        return view('manage.manager.list', [
             'lists' => $categories,
         ]);
     }
@@ -42,14 +42,14 @@ class UserController extends Controller
     {
         try {
             $old_input = $this->request->session()->has('_old_input') ?
-                session('_old_input') : $this->user->first($id);
+                session('_old_input') : $this->manager->first($id);
         } catch (\Exception $e) {
             return response($e->getMessage(), $e->getCode());
         }
 
-        return view('manage.user.add_or_update', [
+        return view('manage.manager.add_or_update', [
             'old_input' => $old_input,
-            'url' => Route('user_update', ['id' => $id]),
+            'url' => Route('manager_update', ['id' => $id]),
             'sign' => 'update',
         ]);
     }
@@ -70,12 +70,12 @@ class UserController extends Controller
         ]);
 
         try {
-            $this->user->update($this->request->all(), $id);
+            $this->manager->update($this->request->all(), $id);
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
 
-        return redirect()->route('user_list');
+        return redirect()->route('manager_list');
     }
 
     /**
@@ -87,11 +87,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $this->user->destroy($id);
+            $this->manager->destroy($id);
         } catch (\Exception $e) {
             return response($e->getMessage(), 500);
         }
 
-        return redirect()->route('user_list');
+        return redirect()->route('manager_list');
     }
 }

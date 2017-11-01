@@ -46,8 +46,8 @@
                             <td>{{ $list['email'] }}</td>
                             <td>{{ $list['created_at'] }}</td>
                             <td>
-                                <button class="btn btn-info" type="button" onclick="location='{{ route('user_update', ['id' => $list['id'] ]) }}'">编辑</button>
-                                <button class="btn btn-danger" type="button" onclick="javascript:if(confirm('确实要删除吗?'))location='{{ route('user_destroy', ['id' => $list['id'] ]) }}'">删除</button>
+                                <button class="btn btn-info" type="button" onclick="location='{{ route('manager_update', ['id' => $list['id'] ]) }}'">编辑</button>
+                                <button class="btn btn-danger" type="button" onclick="javascript:if(confirm('确实要删除吗?'))location='{{ route('manager_destroy', ['id' => $list['id'] ]) }}'">删除</button>
                             </td>
                         </tr>
                         @endforeach
@@ -76,7 +76,7 @@
                     return false;
                 }
 
-                window.location = '{{ route('user_search', ['keyword' => '']) }}/' + stripscript(keyword);
+                window.location = '{{ route('manager_search', ['keyword' => '']) }}/' + stripscript(keyword);
 
                 return false;
             });

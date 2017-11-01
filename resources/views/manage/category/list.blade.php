@@ -20,7 +20,7 @@
                         添加分类
                     </button>
             <header class="panel-heading">
-                服务列表
+                分类列表
             </header>
             	<table class="table table-striped table-hover">
 		            <thead>

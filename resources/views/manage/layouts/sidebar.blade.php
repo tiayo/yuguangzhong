@@ -17,7 +17,7 @@
 
     <li class="menu-list" id="nav_2"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
         <ul class="sub-menu-list">
-            <li id="nav_2_1"><a href="{{ route('user_list') }}">会员管理</a></li>
+            <li id="nav_2_1"><a href="{{ route('manager_list') }}">管理员管理</a></li>
         </ul>
     </li>
 </ul>

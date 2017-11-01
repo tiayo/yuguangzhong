@@ -91,7 +91,7 @@ class CategoryService
             }
         }
 
-        return $childs[0];
+        return isset($childs[0]) ? : [];
     }
 
     /**
@@ -130,7 +130,7 @@ class CategoryService
             }
         }
 
-        return $result;
+        return $result ?? [];
     }
 
     /**

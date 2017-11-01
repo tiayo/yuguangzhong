@@ -13,11 +13,11 @@ $this->group(['middleware' => 'manage_auth'], function () {
     //管理员才可以操作
     $this->group(['middleware' => 'admin'], function () {
         //会员相关
-        $this->get('/user/list/', 'UserController@listView')->name('user_list');
-        $this->get('/user/list/{keyword}', 'UserController@listView')->name('user_search');
-        $this->get('/user/update/{id}', 'UserController@updateView')->name('user_update');
-        $this->post('/user/update/{id}', 'UserController@post');
-        $this->get('/user/destroy/{id}', 'UserController@destroy')->name('user_destroy');
+        $this->get('/manager/list/', 'ManagerController@listView')->name('manager_list');
+        $this->get('/manager/list/{keyword}', 'ManagerController@listView')->name('manager_search');
+        $this->get('/manager/update/{id}', 'ManagerController@updateView')->name('manager_update');
+        $this->post('/manager/update/{id}', 'ManagerController@post');
+        $this->get('/manager/destroy/{id}', 'ManagerController@destroy')->name('manager_destroy');
 
         //分类相关
         $this->get('/category/list/', 'CategoryController@listView')->name('category_list');
