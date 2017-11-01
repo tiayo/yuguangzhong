@@ -91,7 +91,7 @@ class CategoryService
             }
         }
 
-        return isset($childs[0]) ? : [];
+        return isset($childs[0]) ? $childs[0] : [];
     }
 
     /**
@@ -130,6 +130,26 @@ class CategoryService
             }
         }
 
+        return $result ?? [];
+    }
+
+    /**
+     * 无限极添加前缀
+     *
+     * @param $array
+     * @param $prefix
+     *
+     * @return array|string
+     */
+    public function addPrefix($array, $prefix)
+    {
+        foreach ($array as $key => $value) {
+            $value['name'] = $prefix.$value['name'];
+            $result[$key] = $value;
+            if (isset($value['childs'])) {
+                $result[$key]['childs'] = $this->addPrefix($value['childs'], $prefix);
+            }
+        }
         return $result ?? [];
     }
 

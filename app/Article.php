@@ -12,7 +12,12 @@ class Article extends Model
         'abstract',
         'attribute',
         'category_id',
-        'writer_id',
+        'writer',
         'picture',
     ];
+
+    public function category()
+    {
+        return $this->hasOne('App\Category', 'id', 'category_id');
+    }
 }

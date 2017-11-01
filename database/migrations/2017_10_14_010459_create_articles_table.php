@@ -20,8 +20,8 @@ class CreateArticlesTable extends Migration
             $table->string('abstract');
             $table->string('attribute');
             $table->integer('category_id');
-            $table->integer('writer_id');
-            $table->string('picture');
+            $table->string('writer');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

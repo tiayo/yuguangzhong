@@ -3,10 +3,13 @@
 namespace App\Services\Manage;
 
 use App\Repositories\ArticleRepository;
+use App\Services\ImageService;
 use Exception;
 
 class ArticleService
 {
+    use ImageService;
+
     protected $article;
 
     public function __construct(ArticleRepository $article)
@@ -78,10 +81,18 @@ class ArticleService
      */
     public function updateOrCreate($post, $id = null)
     {
-        //统计数据
+        //构造数据
         $data['title'] = $post['title'];
-        $data['group'] = $post['group'];
+        $data['attribute'] = $post['attribute'];
+        $data['category_id'] = $post['category_id'];
+        $data['writer'] = $post['writer'];
         $data['content'] = $post['content'];
+        $data['abstract'] = $post['abstract'] ?? mb_substr(strip_tags($post['content']), 0, 150);;
+
+        //保存图片(如果上传)
+        if (!empty($post['picture'])) {
+            $data['picture'] = $this->uploadImage($post['picture']);
+        }
 
         //执行插入或更新
         return empty($id) ? $this->article->create($data) : $this->article->update($id, $data);

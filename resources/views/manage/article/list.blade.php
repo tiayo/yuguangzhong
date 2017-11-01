@@ -35,7 +35,9 @@
 		                <tr>
 		                    <th>ID</th>
 		                    <th>标题</th>
-		                    <th>分组</th>
+		                    <th>属性</th>
+		                    <th>分类</th>
+		                    <th>作者</th>
 		                    <th>更新时间</th>
 		                    <th>创建时间</th>
                             <th>操作</th>
@@ -47,7 +49,9 @@
                         <tr>
                             <td>{{ $list['id'] }}</td>
                             <td>{{ $list['title'] }}</td>
-                            <td>{{ config('site.article_group')[$list['group']] }}</td>
+                            <td>{{ config('site.article_attribute')[$list['attribute']] }}</td>
+                            <td>{{ $list->category->name }}</td>
+                            <td>{{ $list['writer'] }}</td>
                             <td>{{ $list['updated_at'] }}</td>
                             <td>{{ $list['created_at'] }}</td><td>
                                 <button class="btn btn-info" type="button" onclick="location='{{ route('article_update', ['id' => $list['id'] ]) }}'">编辑</button>

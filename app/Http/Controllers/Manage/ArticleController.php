@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Services\Manage\ArticleService;
+use App\Services\Manage\CategoryService;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    protected $article;
-    protected $request;
+    protected $article, $request, $category;
 
-    public function __construct(ArticleService $article, Request $request)
+    public function __construct(ArticleService $article, Request $request, CategoryService $category)
     {
         $this->article = $article;
         $this->request = $request;
+        $this->category = $category;
     }
 
     /**
@@ -41,7 +42,14 @@ class ArticleController extends Controller
      */
     public function addView()
     {
+        $categories = $this->category->printArray(
+            $this->category->tree(
+                $this->category->getSimple('*')->toArray()
+            )
+        );
+
         return view('manage.article.add_or_update', [
+            'categories' => $categories,
             'old_input' => $this->request->session()->get('_old_input'),
             'url' => Route('article_add'),
             'sign' => 'add',
@@ -56,6 +64,12 @@ class ArticleController extends Controller
      */
     public function updateView($id)
     {
+        $categories = $this->category->printArray(
+            $this->category->tree(
+                $this->category->getSimple('*')->toArray()
+            )
+        );
+
         try {
             $old_input = $this->request->session()->has('_old_input') ?
                 session('_old_input') : $this->article->first($id);
@@ -64,6 +78,7 @@ class ArticleController extends Controller
         }
 
         return view('manage.article.add_or_update', [
+            'categories' => $categories,
             'old_input' => $old_input,
             'url' => Route('article_update', ['id' => $id]),
             'sign' => 'update',
@@ -80,8 +95,10 @@ class ArticleController extends Controller
     {
         $this->validate($this->request, [
             'title' => 'required',
-            'content' => 'required',
-            'group' => 'required|integer',
+            //'picture' => 'file|image',
+            'attribute' => 'required|integer|min:0|max:3',
+            'category_id' => 'required|integer',
+            'writer' => 'required',
         ]);
 
         try {

@@ -71,7 +71,7 @@
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             当前帐号:
-                            {{ Auth::guard()->user()['name'] }}
+                            {{ Auth::guard('manager')->user()['name'] }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -91,7 +91,7 @@
                 <div class="col-md-12">
                     <!--breadcrumbs start -->
                     <ul class="breadcrumb panel">
-                        <li><a href="{{ route('manage') }}"><i class="fa fa-home"></i>主页</a></li>
+                        <li><a href="{{ route('manage') }}"><i class="fa fa-home"></i> 主页</a></li>
                         @section('breadcrumb')
 
                         @show
@@ -108,10 +108,11 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
-        <footer style="bottom: 0;position: fixed;">Copyright © 2015 - {{ date('Y') }} 商城系统 All Rights Reserved  <strong>v1.0</strong></footer>
+        <footer style="bottom: 0;position: fixed;">
+            Copyright © 2017 - {{ date('Y') != 2017 ? date('Y') : '' }} {{ config('site.title') }} All Rights Reserved
+            <strong><a target="_blank" href="https://team.tiayo.com">随享CMSv1.0</a></strong>
+        </footer>
         <!--footer section end-->
-
-
     </div>
     <!-- main content end-->
 </section>
