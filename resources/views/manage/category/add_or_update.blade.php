@@ -64,6 +64,41 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="list_templet" class="col-sm-2 col-sm-2 control-label">列表模板</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="list_templet" placeholder="放空则为默认值"
+                                   name="list_templet" value="{{ $old_input['list_templet'] }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_templet" class="col-sm-2 col-sm-2 control-label">文章模板</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="article_templet" placeholder="放空则为默认值"
+                                   name="article_templet" value="{{ $old_input['article_templet'] }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="view" class="col-sm-2 col-sm-2 control-label">是否显示</label>
+                        <div class="col-sm-3">
+                            <div class="slide-toggle">
+                                <div>
+                                    <input type="checkbox" class="js-switch" id="view" name="view"
+                                           @if($old_input['view'] == 1) checked @endif />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modified_children" class="col-sm-2 col-sm-2 control-label">是否更改下级</label>
+                        <div class="col-sm-3">
+                            <div class="slide-toggle">
+                                <div>
+                                    <input type="checkbox" class="js-switch" value="1" id="modified_children" name="modified_children"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div  class="col-sm-2 col-sm-2 control-label">
                             <button class="btn btn-success" type="submit"><i class="fa fa-cloud-upload"></i> 确认提交</button>
                         </div>

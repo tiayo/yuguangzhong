@@ -24,14 +24,44 @@ class ArticleController extends Controller
      * @param null $keyword
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function listView($keyword = null)
+    public function listView()
     {
         $num = config('site.list_num');
 
-        $categories = $this->article->get($num, $keyword);
+        $articles = $this->article->get($num);
+
+        $categories = $this->category->printArray(
+            $this->category->tree(
+                $this->category->getSimple('*')->toArray()
+            )
+        );
 
         return view('manage.article.list', [
-            'lists' => $categories,
+            'lists' => $articles,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * 搜索
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function search()
+    {
+        $num = config('site.list_num');
+
+        $articles = $this->article->getSearch($num, $this->request->all());
+
+        $categories = $this->category->printArray(
+            $this->category->tree(
+                $this->category->getSimple('*')->toArray()
+            )
+        );
+
+        return view('manage.article.list', [
+            'lists' => $articles,
+            'categories' => $categories,
         ]);
     }
 
@@ -96,7 +126,7 @@ class ArticleController extends Controller
         $this->validate($this->request, [
             'title' => 'required',
             //'picture' => 'file|image',
-            'attribute' => 'required|integer|min:0|max:3',
+            'attribute' => 'required|integer|min:0|max:4',
             'category_id' => 'required|integer',
             'writer' => 'required',
         ]);

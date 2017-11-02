@@ -10,6 +10,9 @@
 
     <title>@yield('title')-{{config('site.title')}}</title>
     @section('style')
+        <!--ios7-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('/static/adminex/js/ios-switch/switchery.css') }}" />
+
         <!--icheck-->
         <link href="{{ asset('/static/adminex/js/iCheck/skins/minimal/minimal.css') }}" rel="stylesheet">
         <link href="{{ asset('/static/adminex/js/iCheck/skins/square/square.css') }}" rel="stylesheet">
@@ -130,6 +133,11 @@
 <script src="{{ asset('/static/adminex/js/iCheck/jquery.icheck.js') }}"></script>
 <script src="{{ asset('/static/adminex/js/icheck-init.js') }}"></script>
 
+<!--ios7-->
+<script src="{{ asset('/static/adminex/js/ios-switch/switchery.js') }}" ></script>
+<script src="{{ asset('/static/adminex/js/ios-switch/ios-init.js') }}" ></script>
+
+
 <!--common scripts for all pages-->
 <script src="{{ asset('/static/adminex/js/scripts.js') }}"></script>
 
@@ -142,11 +150,6 @@
             $('#'+nav_value).addClass('active nav-active');
         }
     })
-</script>
-
-{{--转换搜索链接--}}
-<script type="text/javascript">
-
 </script>
 @show
 </body>

@@ -59,9 +59,19 @@ class ArticleRepository
      * @param $keyword
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getSearch($num, $keyword)
+    public function getSearch($num, $keyword, $category_id)
     {
+        if (empty($category_id)) {
+            return $this->article
+                ->where(function ($query) use ($keyword) {
+                    $query->where('articles.title', 'like', "%$keyword%");
+                })
+                ->orderBy('id', 'desc')
+                ->paginate($num);
+        }
+
         return $this->article
+            ->whereIn('category_id', $category_id)
             ->where(function ($query) use ($keyword) {
                 $query->where('articles.title', 'like', "%$keyword%");
             })
@@ -106,6 +116,50 @@ class ArticleRepository
             ->select($select)
             ->where($where)
             ->first();
+    }
+
+    /**
+     * 获取指定记录（带where和select）
+     *
+     * @param $where
+     * @param array ...$select
+     * @return mixed
+     */
+    public function selectGet($where, ...$select)
+    {
+        return $this->article
+            ->select($select)
+            ->where($where)
+            ->get();
+    }
+
+    /**
+     * 前段获取文章方法
+     *
+     * @param $where [附加条件]
+     * @param $category_array [栏目范围]
+     * @param $number [读取条数]
+     * @param $picture [是否限制图片不为空]
+     * @param array ...$select [获取字段]
+     * @return mixed
+     */
+    public function selectGetIndex($where, $category_array, $limit, $skip, $picture, ...$select)
+    {
+        $query = $this->article
+            ->select($select)
+            ->whereIn('category_id', $category_array);
+
+        if(!empty($where)) {
+            $query->where($where);
+        }
+
+        if ($picture) {
+            $query->whereNotNull('picture');
+        }
+
+        return $query->skip($skip)
+            ->take($limit)
+            ->get();
     }
 
     /**

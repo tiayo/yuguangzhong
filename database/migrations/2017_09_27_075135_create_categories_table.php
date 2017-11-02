@@ -17,6 +17,9 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('parent_id');
+            $table->integer('view')->default(1); //是否显示
+            $table->string('list_templet')->nullable(); //列表模板页
+            $table->string('article_templet')->nullable(); //文章模板页
             $table->timestamps();
         });
     }

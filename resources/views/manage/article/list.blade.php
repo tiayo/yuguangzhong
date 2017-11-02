@@ -16,7 +16,21 @@
     <div class="col-md-12">
 		<section class="panel">
             <div class="panel-body">
-                <form class="form-inline" id="search_form">
+                <form class="form-inline" id="search_form" action="{{ route('article_search') }}">
+                    <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button">
+                            根据栏目查看 <span class="caret"></span>
+                        </button>
+                        <ul role="menu" class="dropdown-menu">
+                            @foreach($categories as $category)
+                                <li>
+                                    <a href="{{ route('article_search', ['category_id' => $category['id']]) }}">
+                                        {{ $category['name'] }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                     <div class="form-group">
                         <label class="sr-only" for="search"></label>
                         <input type="text" class="form-control" id="search" name="keyword"
@@ -71,34 +85,4 @@
 
 @section('script')
     @parent
-    {{--转换搜索链接--}}
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('#search_form').submit(function () {
-
-                var keyword = $('#search').val();
-
-                if (stripscript(keyword) == '') {
-                    $('#search').val('');
-                    return false;
-                }
-
-                window.location = '{{ route('article_search', ['keyword' => '']) }}/' + stripscript(keyword);
-
-                return false;
-            });
-
-        });
-
-        function stripscript(s)
-        {
-            var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-            var rs = "";
-            for (var i = 0; i < s.length; i++) {
-                rs = rs+s.substr(i, 1).replace(pattern, '');
-            }
-            return rs;
-        }
-    </script>
 @endsection

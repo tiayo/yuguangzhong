@@ -10,11 +10,12 @@ class ArticleService
 {
     use ImageService;
 
-    protected $article;
+    protected $article, $category;
 
-    public function __construct(ArticleRepository $article)
+    public function __construct(ArticleRepository $article, CategoryService $category)
     {
         $this->article = $article;
+        $this->category = $category;
     }
 
     /**
@@ -41,14 +42,43 @@ class ArticleService
      * @param null $keyword
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function get($num = 10000, $keyword = null)
+    public function get($num = 10000)
     {
-        if (!empty($keyword)) {
-            return $this->article->getSearch($num, $keyword);
-        }
-
         return $this->article->get($num);
     }
+
+    public function getSearch($num, $post)
+    {
+        $keyword = $post['keyword'] ?? '';
+
+        $category_id = $post['category_id'] ?? [];
+
+        if (!empty($category_id)) {
+            $category_children = $this->category->getCategoryChildren($category_id);
+            $category_id = array_merge($this->getCategoryID($category_children['childs'] ?? []), [$category_id]);
+        }
+
+        return $this->article->getSearch($num, $keyword, $category_id);
+    }
+
+    /**
+     * 获取分类数组中所有分类id
+     *
+     * @param $categories
+     * @return mixed
+     */
+    public function getCategoryID($categories, &$result = [])
+    {
+        foreach ($categories as $category) {
+            $result[] = $category['id'];
+            if (isset($category['childs'])) {
+                $this->getCategoryID($category['childs'], $result);
+            }
+        }
+
+        return $result;
+    }
+
 
     /**
      * 获取需要的数据

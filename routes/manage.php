@@ -30,11 +30,21 @@ $this->group(['middleware' => 'manage_auth'], function () {
 
         //文章模块
         $this->get('/article/list/', 'ArticleController@listView')->name('article_list');
-        $this->get('/article/list/{keyword}', 'ArticleController@listView')->name('article_search');
+        $this->get('/article/search', 'ArticleController@search')->name('article_search');
         $this->get('/article/add', 'ArticleController@addView')->name('article_add');
         $this->post('/article/add', 'ArticleController@post');
         $this->get('/article/update/{id}', 'ArticleController@updateView')->name('article_update');
         $this->post('/article/update/{id}', 'ArticleController@post');
         $this->get('/article/destroy/{id}', 'ArticleController@destroy')->name('article_destroy');
+
+        //活动模块
+        $this->get('/activity/list/', 'ActivityController@listView')->name('activity_list');
+        $this->get('/activity/list/{keyword}', 'ActivityController@listView')->name('activity_search');
+        $this->get('/activity/add', 'ActivityController@addView')->name('activity_add');
+        $this->post('/activity/add', 'ActivityController@post');
+        $this->get('/activity/update/{id}', 'ActivityController@updateView')->name('activity_update');
+        $this->post('/activity/update/{id}', 'ActivityController@post');
+        $this->get('/activity/destroy/{id}', 'ActivityController@destroy')->name('activity_destroy');
+        $this->get('/activity/status/{activity_id}/{status}', 'ActivityController@changeStatus')->name('activity_status');
     });
 });

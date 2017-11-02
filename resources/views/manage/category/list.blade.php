@@ -16,17 +16,21 @@
     <div class="col-md-12">
 		<section class="panel">
             <div class="panel-body">
-                    <button type="button" class="btn btn-primary" onclick="location='{{ route('category_add') }}'">
-                        添加分类
-                    </button>
+                <button type="button" class="btn btn-primary" onclick="location='{{ route('category_add') }}'">
+                    添加分类
+                </button>
             <header class="panel-heading">
                 分类列表
             </header>
             	<table class="table table-striped table-hover">
 		            <thead>
 		                <tr>
+                            <th>ID</th>
 		                    <th>名称</th>
 		                    <th>父级</th>
+		                    <th>是否显示</th>
+		                    <th>列表模板</th>
+		                    <th>文章模板</th>
                             <th>添加时间</th>
 							<th>操作</th>
 		                </tr>
@@ -34,7 +38,8 @@
 
 		            <tbody id="target">
                         @foreach($lists as $list)
-                        <tr>
+                        <tr @if ($list['parent_id'] == 0) style="color: #000; font-weight: 600" @endif>
+                            <td>{{ $list['id'] }}</td>
                             <td>{{ $list['name'] }}</td>
                             <td>
                                 @if ($list['parent_id'] == 0)
@@ -43,6 +48,9 @@
                                     {{ App\Category::find($list['parent_id'])->name }}
                                 @endif
                             </td>
+                            <td>{{ config('site.category_view')[$list['view']] }}</td>
+                            <td>{{ $list['list_templet'] or '默认' }}</td>
+                            <td>{{ $list['article_templet'] or '默认' }}</td>
                             <td>{{ $list['created_at'] }}</td>
                             <td>
                                 <button class="btn btn-info" type="button" onclick="location='{{ route('category_update', ['id' => $list['id'] ]) }}'">编辑</button>
