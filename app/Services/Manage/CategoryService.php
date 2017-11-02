@@ -223,8 +223,12 @@ class CategoryService
 
         //创建操作
         if (empty($id)) {
-            return $this->category->create($data);
+            $id = $this->category->create($data)->id;
+            return $this->category->update($id, ['link' => $this->generateCategoryLink($id)]);
         }
+
+        //生成访问链接
+        $data['link'] = $this->generateCategoryLink($id);
 
         //更新操作
         $this->category->update($id, $data);
@@ -240,6 +244,26 @@ class CategoryService
         empty($data['article_templet']) ? true : $update['article_templet'] = $data['article_templet'];
 
         return $this->updateChildren($this->getCategoryChildren($id)['childs'], $update);
+    }
+
+    /**
+     * 生成栏目链接
+     *
+     * @param $id
+     * @return string
+     */
+    public function generateCategoryLink($id)
+    {
+        $category = $this->first($id);
+        if (empty($category['list_templet'])) {
+            if (!empty($category['link'])) {
+                return $category['link'];
+            }
+
+            return route('home.category_list', ['templet' => 'list', 'category_id' => $id]);
+        }
+
+        return route('home.category_list', ['templet' => $category['list_templet'], 'category_id' => $id]);
     }
 
     /**

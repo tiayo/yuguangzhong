@@ -27,6 +27,7 @@ $this->group(['middleware' => 'manage_auth'], function () {
         $this->get('/category/update/{id}', 'CategoryController@updateView')->name('category_update');
         $this->post('/category/update/{id}', 'CategoryController@post');
         $this->get('/category/destroy/{id}', 'CategoryController@destroy')->name('category_destroy');
+        $this->get('/category/refresh', 'CategoryController@refresh');
 
         //文章模块
         $this->get('/article/list/', 'ArticleController@listView')->name('article_list');

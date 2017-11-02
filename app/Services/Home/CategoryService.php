@@ -23,7 +23,7 @@ class CategoryService
      */
     public function getParent()
     {
-        return $this->category->getParent();
+        return $this->category->getParentView();
     }
 
     public function getCategoryChildren($category_id)
@@ -34,5 +34,28 @@ class CategoryService
     public function getSimple(...$select)
     {
         return $this->category->getSimple(...$select);
+    }
+
+    public function first($category_id)
+    {
+        return $this->service->validata($category_id);
+    }
+
+    /**
+     * 获取分类数组中所有分类id
+     *
+     * @param $categories
+     * @return mixed
+     */
+    public function getCategoryArray($categories, &$result = [])
+    {
+        foreach ($categories as $category) {
+            $result[] = $category;
+            if (isset($category['childs'])) {
+                $this->getCategoryArray($category['childs'], $result);
+            }
+        }
+
+        return $result;
     }
 }

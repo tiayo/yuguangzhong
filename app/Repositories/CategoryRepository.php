@@ -53,6 +53,19 @@ class CategoryRepository
     }
 
     /**
+     * 获取显示的顶级分类
+     *
+     * @return mixed
+     */
+    public function getParentView()
+    {
+        return $this->category
+            ->where('parent_id', 0)
+            ->where('view', 1)
+            ->get();
+    }
+
+    /**
      * 获取所有显示记录(不带分页)
      *
      * @param array ...$select

@@ -162,6 +162,24 @@ class ArticleRepository
             ->get();
     }
 
+    public function selectGetList($where, $category_array, $num, $picture, ...$select)
+    {
+        $query = $this->article
+            ->select($select)
+            ->whereIn('category_id', $category_array);
+
+        if(!empty($where)) {
+            $query->where($where);
+        }
+
+        if ($picture) {
+            $query->whereNotNull('picture');
+        }
+
+        return $query
+            ->paginate($num);
+    }
+
     /**
      * 更新记录
      *

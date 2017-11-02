@@ -31,6 +31,7 @@
 		                    <th>是否显示</th>
 		                    <th>列表模板</th>
 		                    <th>文章模板</th>
+		                    <th>外链</th>
                             <th>添加时间</th>
 							<th>操作</th>
 		                </tr>
@@ -51,6 +52,7 @@
                             <td>{{ config('site.category_view')[$list['view']] }}</td>
                             <td>{{ $list['list_templet'] or '默认' }}</td>
                             <td>{{ $list['article_templet'] or '默认' }}</td>
+                            <td>{{ $list['link'] or '非外链' }}</td>
                             <td>{{ $list['created_at'] }}</td>
                             <td>
                                 <button class="btn btn-info" type="button" onclick="location='{{ route('category_update', ['id' => $list['id'] ]) }}'">编辑</button>

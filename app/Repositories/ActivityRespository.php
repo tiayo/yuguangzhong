@@ -121,4 +121,24 @@ class ActivityRespository
             ->where('id', $id)
             ->update($data);
     }
+
+    public function selectGetIndex($limit, $type, $status, $order)
+    {
+        $query = $this->activity
+            ->limit($limit);
+
+        if ($type !== null) {
+            $query->where('type', $type);
+        }
+
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+
+        if ($order !== null) {
+            $query->where('order', $order);
+        }
+
+        return $query->get();
+    }
 }

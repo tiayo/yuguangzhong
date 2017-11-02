@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Services\Manage\CategoryService;
 use Illuminate\Http\Request;
@@ -123,5 +124,20 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('category_list');
+    }
+
+    /**
+     * 刷新所有链接（上线删除）
+     *
+     * @return string
+     */
+    public function refresh()
+    {
+        foreach (Category::get() as $category) {
+            $data['link'] = $this->category->generateCategoryLink($category['id']);
+            Category::where('id', $category['id'])->update($data);
+        }
+
+        return 'ssd';
     }
 }

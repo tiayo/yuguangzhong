@@ -78,6 +78,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="link" class="col-sm-2 col-sm-2 control-label">列表模板</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="link" placeholder="优先级最高，未填写则默认" name="link" value="{{ $old_input['link'] }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="view" class="col-sm-2 col-sm-2 control-label">是否显示</label>
                         <div class="col-sm-3">
                             <div class="slide-toggle">
