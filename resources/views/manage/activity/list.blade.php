@@ -58,6 +58,9 @@
                             <td>{{ config('site.activity_order')[$list['order']] }}</td>
                             <td>{{ config('site.activity_status')[$list['status']] }}</td>
                             <td>{{ $list['created_at'] }}</td><td>
+                                @if ($list['order'] == 0)
+                                    <button class="btn btn-info" type="button" onclick="location='{{ route('entry_list', ['id' => $list['id'] ]) }}'">报名列表</button>
+                                @endif
                                 <div class="btn-group">
                                     <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button" id="btnGroupDrop1">
                                         更改状态 <span class="caret"></span>

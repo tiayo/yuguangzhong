@@ -139,6 +139,6 @@ class CategoryController extends Controller
             return response($exception->getMessage(), 500);
         }
 
-        return 'success';
+        return redirect()->back();
     }
 }

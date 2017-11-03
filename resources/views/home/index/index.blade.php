@@ -239,11 +239,9 @@
 
                 <div class="m-12">
                     <div class="cl">
-                        <a href="http://www.swgd.gov.cn/index.php?m=content&c=index&a=lists&catid=46" target="_blank">
-                            <div class="l travel_bt">
-                                <h1>文学馆活动</h1>
-                            </div>
-                        </a>
+                        <div class="l travel_bt">
+                            <h1>文学馆活动</h1>
+                        </div>
                         <div class="r travel_k">
                             <ul class="cl travel">
                                 @foreach($activity->get(4) as $list)
@@ -259,11 +257,9 @@
                         </div>
                     </div>
                     <div class="cl pic_box m-12">
-                        <a href="http://www.swgd.gov.cn/index.php?m=content&c=index&a=lists&catid=84" target="_blank">
-                            <div class="l pic_bt">
-                                <h1>视频资料</h1>
-                            </div>
-                        </a>
+                        <div class="l pic_bt">
+                            <h1>视频资料</h1>
+                        </div>
                         <div class="r wfpic">
                             <div class="cl" style="width:914px; overflow:hidden">
                                 <ul class="imgbox scrollleft">

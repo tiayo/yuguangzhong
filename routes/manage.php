@@ -27,7 +27,7 @@ $this->group(['middleware' => 'manage_auth'], function () {
         $this->get('/category/update/{id}', 'CategoryController@updateView')->name('category_update');
         $this->post('/category/update/{id}', 'CategoryController@post');
         $this->get('/category/destroy/{id}', 'CategoryController@destroy')->name('category_destroy');
-        $this->get('/category/refresh', 'CategoryController@refresh');
+        $this->get('/category/refresh', 'CategoryController@refresh')->name('category_refresh');
 
         //文章模块
         $this->get('/article/list/', 'ArticleController@listView')->name('article_list');
@@ -47,5 +47,14 @@ $this->group(['middleware' => 'manage_auth'], function () {
         $this->post('/activity/update/{id}', 'ActivityController@post');
         $this->get('/activity/destroy/{id}', 'ActivityController@destroy')->name('activity_destroy');
         $this->get('/activity/status/{activity_id}/{status}', 'ActivityController@changeStatus')->name('activity_status');
+
+        //活动报名
+        $this->get('/entry/list/{activity_id}', 'EntryController@listView')->name('entry_list');
+        $this->get('/entry/list/{keyword}', 'EntryController@listView')->name('entry_search');
+        $this->get('/entry/add/{activity_id}', 'EntryController@addView')->name('entry_add');
+        $this->post('/entry/add/{activity_id}', 'EntryController@post');
+        $this->get('/entry/update/{activity_id}/{id}', 'EntryController@updateView')->name('entry_update');
+        $this->post('/entry/update/{activity_id}/{id}', 'EntryController@post');
+        $this->get('/entry/destroy/{id}', 'EntryController@destroy')->name('entry_destroy');
     });
 });
