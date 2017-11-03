@@ -20,7 +20,10 @@ class CategoryController extends Controller
     {
         $category = $this->category->first($category_id);
 
-        $childrens = $this->category->getCategoryArray($this->category->getCategoryChildren($category_id)['childs']);
+        $childrens = $this->category->getCategoryArray(
+            $this->category->getCategoryChildren($category_id)['childs'] ??
+            $this->category->getCategoryChildren($category['parent_id'])['childs']
+        );
 
         $articles = $this->article->selectGetList($category_id, config('site.list_num'));
 

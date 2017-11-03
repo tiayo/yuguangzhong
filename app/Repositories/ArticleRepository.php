@@ -195,6 +195,20 @@ class ArticleRepository
     }
 
     /**
+     * 更新记录
+     *
+     * @param $id
+     * @param $data
+     * @return mixed
+     */
+    public function updateWhere($where, $data)
+    {
+        return $this->article
+            ->where($where)
+            ->update($data);
+    }
+
+    /**
      * 获取符合要求的文章
      *
      * @param $type

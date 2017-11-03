@@ -1,5 +1,9 @@
 @extends('home.layouts.app')
 
+@section('title', $article['title'].'-'.$category['name'])
+
+@section('description', $article['abstract'])
+
 @section('body')
     <div class="w1000 cl con_box">
         <div class="conlist l">

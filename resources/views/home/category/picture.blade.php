@@ -7,7 +7,7 @@
 @section('body')
     <div class="cl w1000 con_box">
         @include('home.layouts.list_right')
-        <div class="q_textlist r">
+        <div class="q_piclist r">
             <div class="con_title cl">
                 <em>当前位置
                     <a href="/">首页</a>
@@ -15,18 +15,18 @@
                     <a href="{{ $category['link'] }}">{{ $category['name']  }}</a>
                 </em>
             </div>
-            <ul class="cl m-20">
-                @foreach($articles as $article)
+            <div class="tpbox">
+                <ul class="piclist cl m-20">
+                    @foreach($articles as $article)
                     <li>
-                        <em>{{ $article['updated_at'] }}</em>
-                        <a href="{{ $article['link'] }}" target="_blank">{{ $article['title'] }}</a>
-                        <p> {{ $article['abstract'] }}...
-                            <a href="{{ $article['link'] }}"
-                               target="_blank" class="more">查看全文>></a>
-                        </p>
+                        <a href="{{ $article['link'] }}">
+                            <img src="{{ $article['picture'] }}"/>
+                            <p>{{ $article['title'] }}</p>
+                        </a>
                     </li>
-                @endforeach
-            </ul>
+                    @endforeach
+                </ul>
+            </div>
 
             <div class="search_page">
                 {{ $articles->links() }}

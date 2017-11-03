@@ -2,16 +2,18 @@
 
 namespace App\Services\Manage;
 
+use App\Repositories\ArticleRepository;
 use App\Repositories\CategoryRepository;
 use Exception;
 
 class CategoryService
 {
-    protected $category;
+    protected $category, $article;
 
-    public function __construct(CategoryRepository $category)
+    public function __construct(CategoryRepository $category, ArticleRepository $article)
     {
         $this->category = $category;
+        $this->article = $article;
     }
 
     /**
@@ -224,14 +226,14 @@ class CategoryService
         //创建操作
         if (empty($id)) {
             $id = $this->category->create($data)->id;
-            return $this->category->update($id, ['link' => $this->generateCategoryLink($id)]);
+            return $this->refreshLink($id);
         }
-
-        //生成访问链接
-        $data['link'] = $this->generateCategoryLink($id);
 
         //更新操作
         $this->category->update($id, $data);
+
+        //刷新链接
+        $this->refreshLink($id);
 
         //如果是：顶级栏目，更新下级栏目
         if (!isset($post['modified_children'])) {
@@ -247,23 +249,76 @@ class CategoryService
     }
 
     /**
+     * 刷新栏目链接
+     *
+     * @return bool
+     */
+    public function refreshLink($id = null, $type = null)
+    {
+        $categories = empty($id) ? $this->getSimple('*') : [$this->first($id)];
+
+        foreach ($categories as $category) {
+            //获取栏目链接
+            $data_category['link'] = $this->generateCategoryLink($category, $category['id'], $type);
+
+            //更新栏目链接
+            $this->category->update($category['id'], $data_category);
+
+            //更新文章链接
+            $articles = $this->article->selectGet([
+                ['category_id', $category['id']]
+            ], 'id');
+
+            foreach ($articles as $article) {
+                //获取文章链接
+                $data_article['link'] = $this->generateArticleLink($category, $article['id'], $type);
+
+                //更新文章链接
+                $this->article->updateWhere([
+                    ['id', $article['id']]
+                ], $data_article);
+            }
+
+
+        }
+
+        return true;
+    }
+
+    /**
      * 生成栏目链接
      *
      * @param $id
      * @return string
      */
-    public function generateCategoryLink($id)
+    public function generateCategoryLink($post, $id, $type)
     {
-        $category = $this->first($id);
-        if (empty($category['list_templet'])) {
-            if (!empty($category['link'])) {
-                return $category['link'];
+        if (empty($post['list_templet'])) {
+            if ($type != 'force' && !empty($post['link'])) {
+                return $post['link'];
             }
-
             return route('home.category_list', ['templet' => 'list', 'category_id' => $id]);
         }
 
-        return route('home.category_list', ['templet' => $category['list_templet'], 'category_id' => $id]);
+        return route('home.category_list', ['templet' => $post['list_templet'], 'category_id' => $id]);
+    }
+
+    /**
+     * 生成文章链接
+     *
+     * @param $id
+     * @return string
+     */
+    public function generateArticleLink($post, $id, $type)
+    {
+        if (empty($post['article_templet'])) {
+            if ($type != 'force' && !empty($post['link'])) {
+                return $post['link'];
+            }
+            return route('home.article_view', ['templet' => 'view', 'article_id' => $id]);
+        }
+
+        return route('home.article_view', ['templet' => $post['article_templet'], 'article_id' => $id]);
     }
 
     /**
@@ -276,7 +331,12 @@ class CategoryService
     public function updateChildren($categories, $update)
     {
         foreach ($categories as $category) {
+            //更新数据
             $this->category->update($category['id'], $update);
+
+            //刷新link字段
+            $this->refreshLink($category['id']);
+
             if (isset($category['childs'])) {
                 $this->updateChildren($category['childs'], $update);
             }

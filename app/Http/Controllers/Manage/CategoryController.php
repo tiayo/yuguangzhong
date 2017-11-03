@@ -127,17 +127,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * 刷新所有链接（上线删除）
+     * 刷新所有链接
      *
      * @return string
      */
     public function refresh()
     {
-        foreach (Category::get() as $category) {
-            $data['link'] = $this->category->generateCategoryLink($category['id']);
-            Category::where('id', $category['id'])->update($data);
+        try {
+            $this->category->refreshLink(null, 'force');
+        } catch (\Exception $exception) {
+            return response($exception->getMessage(), 500);
         }
 
-        return 'ssd';
+        return 'success';
     }
 }

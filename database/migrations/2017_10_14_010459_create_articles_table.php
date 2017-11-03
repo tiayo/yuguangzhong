@@ -21,6 +21,8 @@ class CreateArticlesTable extends Migration
             $table->string('attribute');
             $table->integer('category_id');
             $table->string('writer');
+            $table->string('link');
+            $table->integer('click')->default(0);
             $table->string('picture')->nullable();
             $table->timestamps();
         });

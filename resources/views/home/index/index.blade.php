@@ -4,6 +4,10 @@
 
 @extends('home.layouts.app')
 
+@section('title', "首页")
+
+@section('description', '余光中文学馆官方网站')
+
 @section('body')
         <style>
             .index_tab li {
@@ -19,7 +23,7 @@
                                 <div class="focus_panel">
                                     <div>
                                         @foreach($article->get(0, 5, 0, 4, 1) as $list)
-                                            <a href="" target="_blank">
+                                            <a href="{{ $list['link'] }}" target="_blank">
                                                 <img src="{{ $list['picture'] }}">
                                                 <span>{{ $list['title'] }}</span>
                                             </a>
@@ -51,10 +55,10 @@
                                             @foreach($article->get(8, 2, 0) as $list)
                                                 <li>
                                                     <h4>
-                                                        <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                                     </h4>
                                                     <p> {{ mb_substr($list['abstract'], 0, 40) }}...
-                                                        <a href="" target="_blank" class="more">[详情]</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank" class="more">[详情]</a>
                                                     </p>
                                                 </li>
                                             @endforeach
@@ -65,7 +69,7 @@
                                                     <li>
 
                                                         <em>{{ $list->created_at }}</em>
-                                                        <a href="" target="_blank">{{ $list->title }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list->title }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -78,10 +82,10 @@
                                             @foreach($article->get(7, 2, 0) as $list)
                                                 <li>
                                                     <h4>
-                                                        <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                                     </h4>
                                                     <p> {{ mb_substr($list['abstract'], 0, 40) }}...
-                                                        <a href="" target="_blank" class="more">[详情]</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank" class="more">[详情]</a>
                                                     </p>
                                                 </li>
                                             @endforeach
@@ -92,7 +96,7 @@
                                                     <li>
 
                                                         <em>{{ $list->created_at }}</em>
-                                                        <a href="" target="_blank">{{ $list->title }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list->title }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -105,10 +109,10 @@
                                             @foreach($article->get(6, 2, 0) as $list)
                                                 <li>
                                                     <h4>
-                                                        <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                                     </h4>
                                                     <p> {{ mb_substr($list['abstract'], 0, 40) }}...
-                                                        <a href="" target="_blank" class="more">[详情]</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank" class="more">[详情]</a>
                                                     </p>
                                                 </li>
                                             @endforeach
@@ -119,7 +123,7 @@
                                                     <li>
 
                                                         <em>{{ $list->created_at }}</em>
-                                                        <a href="" target="_blank">{{ $list->title }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list->title }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -148,16 +152,16 @@
                                         @foreach($article->get(18, 1, 0) as $list)
                                         <dl class="cl">
                                             <dt>
-                                                <a href="" target="_blank">
+                                                <a href="{{ $list['link'] }}" target="_blank">
                                                     <img src="{{ $list['picture'] }}">
                                                 </a>
                                             </dt>
                                             <dd>
                                                 <h4>
-                                                    <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                    <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                                 </h4>
                                                 <p> {{ mb_substr($list['abstract'], 0, 40) }}...
-                                                    <a href=""
+                                                    <a href="{{ $list['link'] }}"
                                                        target="_blank" class="more">[详情]</a>
                                                 </p>
                                             </dd>
@@ -167,12 +171,12 @@
                                     <ul class="textlist cl">
                                         @foreach($article->get(18, 4, 1) as $list)
                                         <li>
-                                            <a href="" target="_blank">{{ $list['title'] }}</a>
+                                            <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                         </li>
                                         @endforeach
                                     </ul>
                                     <div class="more_but">
-                                        <a href="" target="_blank">更多</a>
+                                        <a href="{{ $list['link'] }}" target="_blank">更多</a>
                                     </div>
                                 </div>
                                 <div class="r scenic">
@@ -185,16 +189,16 @@
                                         @foreach($article->get(20   , 1, 0) as $list)
                                             <dl class="cl">
                                                 <dt>
-                                                    <a href="" target="_blank">
+                                                    <a href="{{ $list['link'] }}" target="_blank">
                                                         <img src="{{ $list['picture'] }}">
                                                     </a>
                                                 </dt>
                                                 <dd>
                                                     <h4>
-                                                        <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                        <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                                     </h4>
                                                     <p> {{ mb_substr($list['abstract'], 0, 40) }}...
-                                                        <a href=""
+                                                        <a href="{{ $list['link'] }}"
                                                            target="_blank" class="more">[详情]</a>
                                                     </p>
                                                 </dd>
@@ -204,7 +208,7 @@
                                     <ul class="textlist cl">
                                         @foreach($article->get(20, 4, 1) as $list)
                                             <li>
-                                                <a href="" target="_blank">{{ $list['title'] }}</a>
+                                                <a href="{{ $list['link'] }}" target="_blank">{{ $list['title'] }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -217,13 +221,13 @@
                     </div>
                     <div class="r w336">
                         <div class="title cl">
-                            <a href="" target="_blank">更多</a>
+                            <a href="{{ $list['link'] }}" target="_blank">更多</a>
                             <h2>文学作品展示</h2>
                         </div>
                         <ul class="zine con2 cl">
                             @foreach($article->get(10, 2) as $list)
                                 <li>
-                                    <a href="" target="_blank">
+                                    <a href="{{ $list['link'] }}" target="_blank">
                                         <img src="{{ $list['picture'] }}">
                                         <p>{{ $list['title'] }}</p>
                                     </a>
@@ -245,7 +249,7 @@
                                 @foreach($activity->get(4) as $list)
                                     <li>
                                         <h5>{{ $list['name'] }}</h5>
-                                        <a href="" target="_blank">
+                                        <a href="{{ $list['link'] }}" target="_blank">
                                             <img src="{{ $list['picture'] }}">
                                         </a>
                                         <p>{{ mb_substr(strip_tags($list['content']), 0, 40) }}...</p>
@@ -265,7 +269,7 @@
                                 <ul class="imgbox scrollleft">
                                     @foreach($article->get(10, 10) as $list)
                                         <li>
-                                            <a href="" target="_blank">
+                                            <a href="{{ $list['link'] }}" target="_blank">
                                                 <img src="{{ $list['picture'] }}">
                                             </a>
                                         </li>
@@ -280,7 +284,7 @@
                         <h2>友情链接</h2>
                     </div>
                     <div class="links cl con2">
-                        <a href="http://zgyc.com.cn/" target="_blank">永春网�</a> |
+                        <a href="http://zgyc.com.cn/" target="_blank">永春网</a> |
                     </div>
                 </div>
             </div>

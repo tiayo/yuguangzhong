@@ -6,9 +6,9 @@
 <html lang="zh-cn">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ config('site.title') }}</title>
+    <title>@yield('title')-{{ config('site.title') }}</title>
     <meta name="keywords" content="余光中,余光中文学馆,文学馆,永春文学馆">
-    <meta name="description" content="余光中文学馆官方网站">
+    <meta name="description" content="@yield('description')">
     <link rel="stylesheet" href="{{ asset('style/css/css.css') }}" />
     <script type="text/javascript" src="{{ asset('style/js/j.js') }}"></script>
     <script type="text/javascript" src="{{ asset('style/js/all.js') }}"></script>
@@ -20,7 +20,7 @@
     <div class="weather">
         <div class="w1000">
             <div class="l" style="position:relative; top:5px;">
-                <iframe width="450" scrolling="no" height="24" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23&icon=1&py=yongchun&wind=1&num=2"></iframe>
+                <iframe width="460" scrolling="no" height="24" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=1&color=%23&icon=1&py=yongchun&wind=1&num=2"></iframe>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="contact">
             <a href="{{ route('home.index') }}">网站首页</a> |
             @foreach($categories as $category)
-                <a href="">{{ $category['name'] }}</a> |
+                <a href="{{ $category['link'] }}">{{ $category['name'] }}</a> |
             @endforeach
         </div>
         <div class="information">
@@ -67,10 +67,7 @@
         </div>
     </div>
 </div>
-<!--<div class="wxbox">
-<div class="close"></div>
-</div>-->
+
 </body>
 
 </html>
-</body>
