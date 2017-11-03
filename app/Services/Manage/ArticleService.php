@@ -125,7 +125,12 @@ class ArticleService
         }
 
         //执行插入或更新
-        return empty($id) ? $this->article->create($data) : $this->article->update($id, $data);
+        empty($id) ? $id = $this->article->create($data)->id : $this->article->update($id, $data);
+
+        //link
+        $update['link'] = $this->category->generateArticleLink($this->category->first($data['category_id']), $id, 'force');
+
+        return $this->article->update($id, $update);
     }
 
     /**

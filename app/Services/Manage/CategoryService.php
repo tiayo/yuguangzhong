@@ -311,16 +311,16 @@ class CategoryService
      * @param $id
      * @return string
      */
-    public function generateArticleLink($post, $id, $type)
+    public function generateArticleLink($post, $article_id, $type)
     {
         if (empty($post['article_templet'])) {
             if ($type != 'force' && !empty($post['link'])) {
                 return $post['link'];
             }
-            return route('home.article_view', ['templet' => 'view', 'article_id' => $id]);
+            return route('home.article_view', ['templet' => 'view', 'article_id' => $article_id]);
         }
 
-        return route('home.article_view', ['templet' => $post['article_templet'], 'article_id' => $id]);
+        return route('home.article_view', ['templet' => $post['article_templet'], 'article_id' => $article_id]);
     }
 
     /**
