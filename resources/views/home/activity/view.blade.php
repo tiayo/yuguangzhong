@@ -34,7 +34,7 @@
                                 {!! $activity['content'] !!}
                             </div>
                         </div>
-                        @if($activity['order'] == 1)
+                        @if($activity['order'] == 1 && session('already_entry') != 1)
                             <span class="parting_line"></span>
                             <form method="post" action="{{ route('home.entry_add', ['activity_id' => $activity_id]) }}" class="ac-form">
                                 {{ csrf_field() }}

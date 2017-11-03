@@ -66,7 +66,7 @@ class ActivityController extends Controller
             return redirect()->back()->withErrors('验证码错误');
         }
 
-
+        //有输入邮箱时验证
         if (!empty($post['email'])) {
             $this->validate($this->request, [
                 'email' => 'email',
@@ -75,7 +75,11 @@ class ActivityController extends Controller
 
         $post['activity_id'] = $activity_id;
 
+        //添加
         $this->entry->updateOrCreate($post);
+
+        //成功报名记录
+        $this->request->session()->put('already_entry', 1);
 
         return redirect()->back()->withErrors('报名成功！稍后您可能会接到通知！');
     }
