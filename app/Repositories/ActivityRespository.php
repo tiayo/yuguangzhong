@@ -127,18 +127,38 @@ class ActivityRespository
         $query = $this->activity
             ->limit($limit);
 
-        if ($type !== null) {
+        if (!empty($type)) {
             $query->where('type', $type);
         }
 
-        if ($status !== null) {
+        if (!empty($status)) {
             $query->where('status', $status);
         }
 
-        if ($order !== null) {
+        if (!empty($order)) {
             $query->where('order', $order);
         }
 
         return $query->get();
+    }
+
+    public function selectGetList($limit, $type, $status, $order)
+    {
+        $query = $this->activity
+            ->limit($limit);
+
+        if (!empty($type)) {
+            $query->where('type', $type);
+        }
+
+        if (!empty($status)) {
+            $query->where('status', $status);
+        }
+
+        if (!empty($order)) {
+            $query->where('order', $order);
+        }
+
+        return $query->paginate($limit);
     }
 }

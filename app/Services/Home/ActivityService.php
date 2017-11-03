@@ -20,4 +20,14 @@ class ActivityService
     {
         return $this->activity->selectGetIndex($limit, $type, $status, $order);
     }
+
+    public function getList($limit, $type = null, $status = null, $order = null)
+    {
+        return $this->activity->selectGetList($limit, $type, $status, $order);
+    }
+
+    public function first($activity_id)
+    {
+        return $this->service->validata($activity_id);
+    }
 }

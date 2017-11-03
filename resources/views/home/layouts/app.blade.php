@@ -68,6 +68,9 @@
     </div>
 </div>
 
-</body>
+@section('script')
 
+@show
+
+</body>
 </html>

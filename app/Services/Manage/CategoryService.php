@@ -222,6 +222,7 @@ class CategoryService
 
         empty($post['list_templet']) ? true : $data['list_templet'] = $post['list_templet'];
         empty($post['article_templet']) ? true : $data['article_templet'] = $post['article_templet'];
+        empty($post['link']) ? true : $data['link'] = $post['link'];
 
         //创建操作
         if (empty($id)) {
@@ -244,6 +245,7 @@ class CategoryService
         $update['view'] = $data['view'];
         empty($data['list_templet']) ? true : $update['list_templet'] = $data['list_templet'];
         empty($data['article_templet']) ? true : $update['article_templet'] = $data['article_templet'];
+        empty($data['link']) ? true : $update['link'] = $data['link'];
 
         return $this->updateChildren($this->getCategoryChildren($id)['childs'], $update);
     }
