@@ -30,7 +30,7 @@
         <div class="login-wrap">
             <form method="post" action="{{ route('manage.login') }}">
                 {{ csrf_field() }}
-                <input type="text" class="form-control" placeholder="输入邮箱" autofocus name="email" value="{{ session('_old_input')['email'] }}" required>
+                <input type="text" class="form-control" placeholder="输入邮箱" autofocus name="name" value="{{ session('_old_input')['name'] }}" required>
                 <input type="password" class="form-control" placeholder="密码" name="password" required>
                 <!--错误输出-->
                 <div class="form-group">
