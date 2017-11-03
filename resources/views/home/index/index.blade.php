@@ -247,7 +247,7 @@
                                 @foreach($activity->get(4) as $list)
                                     <li>
                                         <h5>{{ $list['name'] }}</h5>
-                                        <a href="{{ $list['link'] }}" target="_blank">
+                                        <a href="{{ Route('home.activity_view', ['activity_id' => $list['id']]) }}" target="_blank">
                                             <img src="{{ $list['picture'] }}">
                                         </a>
                                         <p>{{ mb_substr(strip_tags($list['content']), 0, 40) }}...</p>
