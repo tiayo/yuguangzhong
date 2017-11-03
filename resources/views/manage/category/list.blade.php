@@ -20,7 +20,7 @@
                     添加分类
                 </button>
                 <button type="button" class="btn btn-danger" style="float: right;"
-                        onclick="location='{{ route('category_refresh') }}'">
+                        onclick="javascript:if(confirm('技术员才可以操作，请点击取消！'))location='{{ route('category_refresh') }}'">
                     刷新分类
                 </button>
             <header class="panel-heading">
