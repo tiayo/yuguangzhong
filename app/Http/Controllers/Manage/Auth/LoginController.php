@@ -29,4 +29,9 @@ class LoginController extends Controller
     {
         return Auth::guard($this->auth);
     }
+
+    public function username()
+    {
+        return 'name';
+    }
 }
